@@ -86,7 +86,6 @@ class MessageViewController: SLKTextViewController {
         let message = self.messages.objectAtIndex(indexPath.row) as NSString
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionViewCell", forIndexPath: indexPath) as SLKMessageViewCell
-        cell.backgroundColor = UIColor.blackColor()
         cell.titleLabel.text = message
 
         return cell
