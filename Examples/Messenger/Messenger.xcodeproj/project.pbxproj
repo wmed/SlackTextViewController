@@ -10,10 +10,6 @@
 		35A4C7C11DE3FD17F022DC0C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFA9095EABC480682E6396C /* libPods.a */; };
 		49FEFA70DA01AB47666A8D63 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFA9095EABC480682E6396C /* libPods.a */; };
 		4A8EFBBFAC0F49199AAABF46 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDFA9095EABC480682E6396C /* libPods.a */; };
-		4F11BB2F1ABE164A006A7794 /* MessageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F759E9E19FDD529008C7CAB /* MessageFlowLayout.m */; };
-		4F11BB301ABE164B006A7794 /* MessageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F759E9E19FDD529008C7CAB /* MessageFlowLayout.m */; };
-		4F11BB311ABE164B006A7794 /* MessageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F759E9E19FDD529008C7CAB /* MessageFlowLayout.m */; };
-		4F11BB321ABE164B006A7794 /* MessageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F759E9E19FDD529008C7CAB /* MessageFlowLayout.m */; };
 		4F3256191AA77386008C1DD9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3256161AA77386008C1DD9 /* AppDelegate.m */; };
 		4F32561A1AA77386008C1DD9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F3256171AA77386008C1DD9 /* Info.plist */; };
 		4F32561B1AA77386008C1DD9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3256181AA77386008C1DD9 /* main.m */; };
@@ -49,8 +45,6 @@
 		4FE038E01A0898700083435F /* SLKMessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE038DE1A0898700083435F /* SLKMessageViewCell.m */; };
 		4FE038E11A0898700083435F /* SLKMessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE038DE1A0898700083435F /* SLKMessageViewCell.m */; };
 		4FE038E41A0898E90083435F /* MessagesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE038E31A0898E90083435F /* MessagesCollectionViewController.m */; };
-		4FE8A7701A021EAF00B6D202 /* MessageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8A76F1A021EAF00B6D202 /* MessageFlowLayout.m */; };
-		4FE8A7711A021F2B00B6D202 /* MessageFluidLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8A76C1A02000300B6D202 /* MessageFluidLayout.swift */; };
 		71BE10281A72F3E50083EE32 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F86BF9219F01234007A3D4A /* MessageViewController.m */; };
 		71BE10291A72F3E50083EE32 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F86BF9019F01234007A3D4A /* MessageTableViewCell.m */; };
 		71BE102B1A72F3E50083EE32 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8ADA761A68C37400023752 /* Message.m */; };
@@ -81,8 +75,6 @@
 		4F3EDB5C199ED00F004C15D6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4F759E9819FDCA1B008C7CAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/LaunchScreen-Swift.xib"; sourceTree = "<group>"; };
 		4F759E9A19FDCA1B008C7CAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Main-Swift.storyboard"; sourceTree = "<group>"; };
-		4F759E9D19FDD529008C7CAB /* MessageFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFlowLayout.h; sourceTree = "<group>"; };
-		4F759E9E19FDD529008C7CAB /* MessageFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFlowLayout.m; sourceTree = "<group>"; };
 		4F7C6BA31A6E208E006E3FAB /* MessageTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTextView.h; sourceTree = "<group>"; };
 		4F7C6BA41A6E208E006E3FAB /* MessageTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTextView.m; sourceTree = "<group>"; };
 		4F86BF6519F011D0007A3D4A /* Messenger-Storyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Messenger-Storyboard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,8 +102,6 @@
 		4FE038DE1A0898700083435F /* SLKMessageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKMessageViewCell.m; sourceTree = "<group>"; };
 		4FE038E21A0898E90083435F /* MessagesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesCollectionViewController.h; sourceTree = "<group>"; };
 		4FE038E31A0898E90083435F /* MessagesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesCollectionViewController.m; sourceTree = "<group>"; };
-		4FE8A76C1A02000300B6D202 /* MessageFluidLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageFluidLayout.swift; sourceTree = "<group>"; };
-		4FE8A76F1A021EAF00B6D202 /* MessageFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFlowLayout.m; sourceTree = "<group>"; };
 		622BF1F6C9CF013275EF6275 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		71BE10021A72F3130083EE32 /* Messenger-iPad-Sheet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Messenger-iPad-Sheet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C905E5DB18A83F74BD092CDD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -648,14 +638,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				71BE10301A76C4890083EE32 /* MessageTextView.m in Sources */,
-				4F11BB311ABE164B006A7794 /* MessageFlowLayout.m in Sources */,
 				4F86BF9819F01234007A3D4A /* MessageViewController.m in Sources */,
 				4FE038DB1A088F390083435F /* SLKMessageViewLayout.m in Sources */,
 				4F86BF9619F01234007A3D4A /* MessageTableViewCell.m in Sources */,
 				4F8ADA781A68C37400023752 /* Message.m in Sources */,
 				4FE038E41A0898E90083435F /* MessagesCollectionViewController.m in Sources */,
 				4FE038E01A0898700083435F /* SLKMessageViewCell.m in Sources */,
-				4F86BF6D19F011D0007A3D4A /* AppDelegate.m in Sources */,
 				4F86BF6A19F011D0007A3D4A /* main.m in Sources */,
 				4F32561C1AA77427008C1DD9 /* AppDelegate.m in Sources */,
 			);
@@ -670,7 +658,6 @@
 				4FE038DC1A088F390083435F /* SLKMessageViewLayout.m in Sources */,
 				4FE038E11A0898700083435F /* SLKMessageViewCell.m in Sources */,
 				4F86BFC819F050AF007A3D4A /* AppDelegate.swift in Sources */,
-				4F11BB301ABE164B006A7794 /* MessageFlowLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,7 +666,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				71BE10281A72F3E50083EE32 /* MessageViewController.m in Sources */,
-				4F11BB2F1ABE164A006A7794 /* MessageFlowLayout.m in Sources */,
 				71BE10291A72F3E50083EE32 /* MessageTableViewCell.m in Sources */,
 				71BE102B1A72F3E50083EE32 /* Message.m in Sources */,
 				4F32561B1AA77386008C1DD9 /* main.m in Sources */,
