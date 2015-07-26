@@ -109,7 +109,7 @@ class MessageViewController: SLKTextViewController {
             return 0.0;
         }
         
-        return (CGRectGetHeight(bounds)) as CGFloat;
+        return max(CGRectGetHeight(bounds), minHeight)
     }
     
     // MARK: - UICollectionViewDataSource
