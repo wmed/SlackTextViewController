@@ -59,7 +59,7 @@ class MessageViewController: SLKTextViewController {
         
         self.textView.refreshFirstResponder()
         
-        let message = self.textView.text.copy() as NSString
+        let message = self.textView.text.copy() as! NSString
         
         self.messages.insertObject(message, atIndex: 0)
         
@@ -83,17 +83,18 @@ class MessageViewController: SLKTextViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> SLKMessageViewCell {
         
-        let message = self.messages.objectAtIndex(indexPath.row) as NSString
+        let message = self.messages.objectAtIndex(indexPath.row) as! NSString
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionViewCell", forIndexPath: indexPath) as SLKMessageViewCell
-        cell.titleLabel.text = message
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CollectionViewCell", forIndexPath: indexPath) as! SLKMessageViewCell
+        cell.titleLabel.text = message as String
 
         return cell
     }
 
     func collectionView(collectionView: UICollectionView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let minHeight: CGFloat = 40.0
         
-        let message = self.messages.objectAtIndex(indexPath.row) as NSString
+        let message = self.messages.objectAtIndex(indexPath.row) as! NSString
         let width: CGFloat = CGRectGetWidth(collectionView.frame)
         
         var paragraphStyle = NSMutableParagraphStyle()
@@ -102,13 +103,13 @@ class MessageViewController: SLKTextViewController {
         
         var attributes: NSDictionary = [NSFontAttributeName: UIFont.systemFontOfSize(17.0), NSParagraphStyleAttributeName: paragraphStyle]
 
-        let bounds: CGRect = message.boundingRectWithSize(CGSizeMake(width, 0.0), options:NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributes, context: nil)
+        let bounds: CGRect = message.boundingRectWithSize(CGSizeMake(width, 0.0), options:NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributes as [NSObject : AnyObject], context: nil)
 
         if (message.length == 0) {
             return 0.0;
         }
         
-        return (CGRectGetHeight(bounds)) as CGFloat;
+        return max(CGRectGetHeight(bounds), minHeight)
     }
     
     // MARK: - UICollectionViewDataSource
