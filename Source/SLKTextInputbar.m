@@ -39,6 +39,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 @property (nonatomic, strong) NSArray *charCountLabelVCs;
 
 @property (nonatomic, strong) UILabel *charCountLabel;
+@property (nonatomic, strong) UIView *keyboardMockView;
 
 @property (nonatomic) CGPoint previousOrigin;
 
@@ -535,6 +536,56 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     
     self.charCountLabel.text = counter;
     self.charCountLabel.textColor = [self limitExceeded] ? self.charCountLabelWarningColor : self.charCountLabelNormalColor;
+}
+
+
+#pragma mark - Keyboard Mockup
+
+- (void)showKeyboardMockup:(BOOL)show
+{
+    UIWindow *keyboardWindow = [self keyboardWindow];
+    
+    if (!_keyboardMockView && show) {
+        
+        // Takes a snapshot of the keyboard's window
+        UIView *keyboardSnapshot = [keyboardWindow snapshotViewAfterScreenUpdates:NO];
+        
+        // Shifts the snapshot up to fit to the bottom
+        CGRect snapshowFrame = keyboardSnapshot.frame;
+        snapshowFrame.origin.y = CGRectGetHeight(self.inputAccessoryView.keyboardViewProxy.frame) - CGRectGetHeight(self.controller.view.frame);
+        keyboardSnapshot.frame = snapshowFrame;
+        
+        CGRect mockframe = self.inputAccessoryView.keyboardViewProxy.frame;
+        mockframe.origin.y = CGRectGetHeight(self.frame);
+        
+        _keyboardMockView = [[UIView alloc] initWithFrame:mockframe];
+        _keyboardMockView.backgroundColor = [UIColor clearColor];
+        [_keyboardMockView addSubview:keyboardSnapshot];
+        
+        // Adds the mock view to the input bar, so when it moves they are glued together
+        [self addSubview:_keyboardMockView];
+        
+        // let's delay hidding the keyboard window to avoid noticeable glitches
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            keyboardWindow.hidden = YES;
+        });
+    }
+    else if (_keyboardMockView && !show) {
+        
+        [_keyboardMockView removeFromSuperview];
+        _keyboardMockView = nil;
+        
+        keyboardWindow.hidden = NO;
+    }
+}
+
+- (UIWindow *)keyboardWindow
+{
+    NSArray *array = [[UIApplication sharedApplication] windows];
+    
+    // NOTE: This is risky, since the order may change in the future.
+    // But it is the only way of looking up for the keyboard window without using private APIs.
+    return [array lastObject];
 }
 
 

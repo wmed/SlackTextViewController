@@ -91,9 +91,6 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
 
 /**
  YES if keyboard can be dismissed gradually with a vertical panning gesture. Default is YES.
- 
- This feature doesn't work on iOS 9 due to no legit alternatives to detect the keyboard view.
- Open Radar: http://openradar.appspot.com/radar?id=5021485877952512
  */
 @property (nonatomic, assign, getter = isKeyboardPanningEnabled) BOOL keyboardPanningEnabled;
 

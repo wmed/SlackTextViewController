@@ -20,14 +20,11 @@
 
 @implementation SLKInputAccessoryView
 
-
 #pragma mark - Super Overrides
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    if (!SLK_IS_IOS9_AND_HIGHER) {
-        _keyboardViewProxy = newSuperview;
-    }
+    _keyboardViewProxy = newSuperview;
 }
 
 @end
