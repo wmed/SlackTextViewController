@@ -948,42 +948,16 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     CGFloat keyboardMaxY = CGRectGetHeight(SLKKeyWindowBounds());
     CGFloat keyboardMinY = keyboardMaxY - CGRectGetHeight(keyboardView.frame);
     
-    
-    // Skips this if it's not the expected textView.
-    // Checking the keyboard height constant helps to disable the view constraints update on iPad when the keyboard is undocked.
-    // Checking the keyboard status allows to keep the inputAccessoryView valid when still reacing the bottom of the screen.
-    if (![self.textView isFirstResponder] || (self.keyboardHC.constant == 0 && self.keyboardStatus == SLKKeyboardStatusDidHide)) {
-        if ([gesture.view isEqual:_textInputbar] && gestureVelocity.y < 0) {
-            [self presentKeyboard:YES];
-        }
-        return;
-    }
-    
     switch (gesture.state) {
         case UIGestureRecognizerStateBegan: {
             
             startPoint = CGPointZero;
             dragging = NO;
             
-            if (presenting) {
-                // Let's first present the keyboard without animation
-                [self presentKeyboard:NO];
-                
-                // So we can capture the keyboard's view
-                keyboardView = [_textInputbar.inputAccessoryView keyboardViewProxy];
-                
-                originalFrame = keyboardView.frame;
-                originalFrame.origin.y = CGRectGetMaxY(self.view.frame);
-                
-                // And move the keyboard to the bottom edge
-                // TODO: Fix an occasional layout glitch when the keyboard appears for the first time.
-                keyboardView.frame = originalFrame;
-            }
-            
             // Because the keyboard is on its own view hierarchy since iOS 9,
             // we instead show a snapshot of the keyboard and hide it
             // to give the illusion that the keyboard is being moved by the user.
-            if (SLK_IS_IOS9_AND_HIGHER) {
+            if (SLK_IS_IOS9_AND_HIGHER && gestureVelocity.y > 0) {
                 [self.textInputbar showKeyboardMockup:YES];
             }
             
