@@ -552,7 +552,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         
         // Shifts the snapshot up to fit to the bottom
         CGRect snapshowFrame = keyboardSnapshot.frame;
-        snapshowFrame.origin.y = CGRectGetHeight(self.inputAccessoryView.keyboardViewProxy.frame) - CGRectGetHeight(self.controller.view.frame);
+        snapshowFrame.origin.y = CGRectGetHeight(self.inputAccessoryView.keyboardViewProxy.frame) - CGRectGetHeight(self.superview.frame);
         keyboardSnapshot.frame = snapshowFrame;
         
         CGRect mockframe = self.inputAccessoryView.keyboardViewProxy.frame;
