@@ -320,8 +320,12 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         
         _verticalPanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(slk_didPanTextInputBar:)];
         _verticalPanGesture.delegate = self;
-        
         [_textInputbar addGestureRecognizer:self.verticalPanGesture];
+        
+        _verticalSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(slk_didSwipeTextInputBar:)];
+        _verticalSwipeGesture.direction = UISwipeGestureRecognizerDirectionUp;
+        _verticalSwipeGesture.delegate = self;
+        [_textInputbar addGestureRecognizer:self.verticalSwipeGesture];
     }
     return _textInputbar;
 }
@@ -906,14 +910,17 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 #pragma mark - Private Methods
 
+- (void)slk_didSwipeTextInputBar:(UISwipeGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        if ([gesture.view isEqual:self.textInputbar]) {
+            [self presentKeyboard:YES];
+        }
+    }
+}
+
 - (void)slk_didPanTextInputBar:(UIPanGestureRecognizer *)gesture
 {
-    // Textinput dragging isn't supported when
-    if (!self.view.window || !self.keyboardPanningEnabled ||
-        [self ignoreTextInputbarAdjustment] || self.isPresentedInPopover) {
-        return;
-    }
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self slk_handlePanGestureRecognizer:gesture];
     });
@@ -2134,10 +2141,38 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gesture
 {
     if ([gesture isEqual:self.singleTapGesture]) {
-        return [self.textView isFirstResponder] && ![self ignoreTextInputbarAdjustment];
+        // Tap to dismiss isn't supported when
+        if (![self.textView isFirstResponder] && [self ignoreTextInputbarAdjustment]) {
+            return NO;
+        }
+        
+        return YES;
+    }
+    else if ([gesture isEqual:self.verticalSwipeGesture]) {
+        // TextInput swipping isn't supported when
+        if (!self.view.window || [self.textView isFirstResponder] || [self ignoreTextInputbarAdjustment] || self.isPresentedInPopover) {
+            return NO;
+        }
+        
+        return YES;
     }
     else if ([gesture isEqual:self.verticalPanGesture]) {
-        return self.keyboardPanningEnabled && ![self ignoreTextInputbarAdjustment];
+        // TextInput dragging isn't supported when
+        if (!self.view.window || !self.keyboardPanningEnabled || [self ignoreTextInputbarAdjustment] || self.isPresentedInPopover) {
+            return NO;
+        }
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if ([otherGestureRecognizer isKindOfClass:[UISwipeGestureRecognizer class]] &&
+        [gestureRecognizer isEqual:self.verticalPanGesture] && [otherGestureRecognizer isEqual:self.verticalSwipeGesture]) {
+        return YES;
     }
     
     return NO;
