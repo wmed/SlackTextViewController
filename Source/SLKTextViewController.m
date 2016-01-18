@@ -924,7 +924,6 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     static CGPoint startPoint;
     static CGRect originalFrame;
     static BOOL dragging = NO;
-    static BOOL presenting = NO;
     
     __block UIView *keyboardView = [_textInputbar.inputAccessoryView keyboardViewProxy];
     
@@ -946,26 +945,23 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
             startPoint = CGPointZero;
             dragging = NO;
             
-            // Because the keyboard is on its own view hierarchy since iOS 9,
-            // we instead show a snapshot of the keyboard and hide it
-            // to give the illusion that the keyboard is being moved by the user.
-            if (SLK_IS_IOS9_AND_HIGHER && gestureVelocity.y > 0) {
-                [self.textInputbar showKeyboardMockup:YES];
-            }
-            
             break;
         }
         case UIGestureRecognizerStateChanged: {
             
-            if (CGRectContainsPoint(_textInputbar.frame, gestureLocation) || dragging || presenting){
-                
+            if (CGRectContainsPoint(_textInputbar.frame, gestureLocation) || dragging){
                 if (CGPointEqualToPoint(startPoint, CGPointZero)) {
                     startPoint = gestureLocation;
                     dragging = YES;
                     
-                    if (!presenting) {
-                        originalFrame = keyboardView.frame;
+                    // Because the keyboard is on its own view hierarchy since iOS 9,
+                    // we instead show a snapshot of the keyboard and hide it
+                    // to give the illusion that the keyboard is being moved by the user.
+                    if (SLK_IS_IOS9_AND_HIGHER && gestureVelocity.y > 0) {
+                        [self.textInputbar showKeyboardMockup:YES];
                     }
+                    
+                    originalFrame = keyboardView.frame;
                 }
                 
                 self.movingKeyboard = YES;
@@ -973,13 +969,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
                 CGPoint transition = CGPointMake(gestureLocation.x - startPoint.x, gestureLocation.y - startPoint.y);
                 
                 CGRect keyboardFrame = originalFrame;
-                
-                if (presenting) {
-                    keyboardFrame.origin.y += transition.y;
-                }
-                else {
-                    keyboardFrame.origin.y += MAX(transition.y, 0.0);
-                }
+                keyboardFrame.origin.y += MAX(transition.y, 0.0);
                 
                 // Makes sure they keyboard is always anchored to the bottom
                 if (CGRectGetMinY(keyboardFrame) < keyboardMinY) {
@@ -1027,18 +1017,13 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
             }
             
             CGPoint transition = CGPointMake(0.0, fabs(gestureLocation.y - startPoint.y));
-            
             CGRect keyboardFrame = originalFrame;
-            
-            if (presenting) {
-                keyboardFrame.origin.y = keyboardMinY;
-            }
             
             // The velocity can be changed to hide or show the keyboard based on the gesture
             CGFloat minVelocity = 20.0;
             CGFloat minDistance = CGRectGetHeight(keyboardFrame)/2.0;
             
-            BOOL hide = (gestureVelocity.y > minVelocity) || (presenting && transition.y < minDistance) || (!presenting && transition.y > minDistance);
+            BOOL hide = (gestureVelocity.y > minVelocity) || (transition.y > minDistance);
             
             if (hide) keyboardFrame.origin.y = keyboardMaxY;
             
@@ -1061,7 +1046,6 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
                                  startPoint = CGPointZero;
                                  originalFrame = CGRectZero;
                                  dragging = NO;
-                                 presenting = NO;
                                  
                                  self.movingKeyboard = NO;
                                  
