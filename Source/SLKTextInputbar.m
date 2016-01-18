@@ -539,9 +539,9 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 }
 
 
-#pragma mark - Keyboard Mockup
+#pragma mark - Keyboard Snapshot
 
-- (void)showKeyboardMockup:(BOOL)show
+- (void)showKeyboardSnapshot:(BOOL)show
 {
     UIWindow *keyboardWindow = [self keyboardWindow];
     

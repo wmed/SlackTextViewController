@@ -122,14 +122,13 @@ typedef NS_ENUM(NSUInteger, SLKCounterPosition) {
  */
 - (void)endTextEdition;
 
-
 /**
- YES if a keyboard screenshot should be shown, replacing the keyboard area.
- Since the keyboard is on its own view hierarchy since iOS 9, this is an easy technique to achieve the effect for dragging keyboard being moved together with the text input bar.
+ YES if a keyboard snapshot should be shown, replacing the system keyboard.
+ The snapshot is being added as a subview, aligned at the same position the keyboard is, before hiding it momentarily.
  
- @param show YES if a keyboard screenshot should be show.
+ @param show YES if a keyboard snapshot should be show and the system keyboard hidden.
  */
-- (void)showKeyboardMockup:(BOOL)show;
+- (void)showKeyboardSnapshot:(BOOL)show;
 
 
 #pragma mark - Text Counting
