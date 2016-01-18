@@ -913,7 +913,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 - (void)slk_didSwipeTextInputBar:(UISwipeGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateEnded) {
-        if ([gesture.view isEqual:self.textInputbar]) {
+        if (!self.isPresentedInPopover && ![self ignoreTextInputbarAdjustment]) {
             [self presentKeyboard:YES];
         }
     }
@@ -921,14 +921,6 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 - (void)slk_didPanTextInputBar:(UIPanGestureRecognizer *)gesture
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self slk_handlePanGestureRecognizer:gesture];
-    });
-}
-
-- (void)slk_handlePanGestureRecognizer:(UIPanGestureRecognizer *)gesture
-{
-    // Local variables
     static CGPoint startPoint;
     static CGRect originalFrame;
     static BOOL dragging = NO;
@@ -1091,11 +1083,6 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     if (!self.isPresentedInPopover && ![self ignoreTextInputbarAdjustment]) {
         [self dismissKeyboard:YES];
     }
-}
-
-- (void)slk_didPanTextView:(UIGestureRecognizer *)gesture
-{
-    [self presentKeyboard:YES];
 }
 
 - (void)slk_performRightAction
