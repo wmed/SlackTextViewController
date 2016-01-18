@@ -565,8 +565,8 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         // Adds the mock view to the input bar, so when it moves they are glued together
         [self addSubview:_keyboardMockView];
         
-        // let's delay hidding the keyboard window to avoid noticeable glitches
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // Let's delay hiding the keyboard's window to avoid noticeable glitches
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             keyboardWindow.hidden = YES;
         });
     }
