@@ -651,7 +651,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh uncrustify.sh";
+			shellScript = "sh Uncrustify/uncrustify.sh";
 		};
 		F50C31571C4D6B4800365BB3 /* Objective-C Code Formatting */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -665,7 +665,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh uncrustify.sh";
+			shellScript = "sh Uncrustify/uncrustify.sh";
 			showEnvVarsInLog = 0;
 		};
 		F50C31581C4D6B5700365BB3 /* Objective-C Code Formatting */ = {
@@ -680,7 +680,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh uncrustify.sh";
+			shellScript = "sh Uncrustify/uncrustify.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
