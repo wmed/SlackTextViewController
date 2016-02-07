@@ -272,7 +272,7 @@ static NSString *const SLKTextViewGenericFormattingSelectorPrefix = @"slk_format
     NSArray *pasteboardTypes = [[UIPasteboard generalPasteboard] pasteboardTypes];
     NSMutableArray *subpredicates = [NSMutableArray new];
 
-    for (NSString *type in[self slk_supportedMediaTypes]) {
+    for (NSString *type in self.slk_supportedMediaTypes) {
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"SELF == %@", type]];
     }
 
