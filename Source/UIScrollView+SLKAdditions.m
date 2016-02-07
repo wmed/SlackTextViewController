@@ -37,6 +37,7 @@
     if (self.contentSize.height > CGRectGetHeight(self.frame)) {
         return YES;
     }
+
     return NO;
 }
 
@@ -55,6 +56,7 @@
     CGRect visibleRect;
     visibleRect.origin = self.contentOffset;
     visibleRect.size = self.frame.size;
+
     return visibleRect;
 }
 
@@ -68,11 +70,11 @@
     if (!self.isDragging) {
         return;
     }
-    
+
     CGPoint offset = self.contentOffset;
     offset.y -= 1.0;
     [self setContentOffset:offset];
-    
+
     offset.y += 1.0;
     [self setContentOffset:offset];
 }

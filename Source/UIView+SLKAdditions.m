@@ -40,12 +40,12 @@
               initialSpringVelocity:0.7
                             options:options
                          animations:^{
-                             [self layoutIfNeeded];
-                             
-                             if (animations) {
-                                 animations();
-                             }
-                         }
+            [self layoutIfNeeded];
+
+            if (animations) {
+                animations();
+            }
+        }
                          completion:completion];
     }
     else {
@@ -53,12 +53,12 @@
                               delay:0.0
                             options:options
                          animations:^{
-                             [self layoutIfNeeded];
-                             
-                             if (animations) {
-                                 animations();
-                             }
-                         }
+            [self layoutIfNeeded];
+
+            if (animations) {
+                animations();
+            }
+        }
                          completion:completion];
     }
 }
@@ -66,12 +66,14 @@
 - (NSArray *)slk_constraintsForAttribute:(NSLayoutAttribute)attribute
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstAttribute = %d", attribute];
+
     return [self.constraints filteredArrayUsingPredicate:predicate];
 }
 
 - (NSLayoutConstraint *)slk_constraintForAttribute:(NSLayoutAttribute)attribute firstItem:(id)first secondItem:(id)second
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstAttribute = %d AND firstItem = %@ AND secondItem = %@", attribute, first, second];
+
     return [[self.constraints filteredArrayUsingPredicate:predicate] firstObject];
 }
 
