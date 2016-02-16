@@ -123,12 +123,12 @@ typedef NS_ENUM(NSUInteger, SLKCounterPosition) {
 - (void)endTextEdition;
 
 /**
- YES if a keyboard snapshot should be shown, replacing the system keyboard.
+ YES if a keyboard snapshot placeholder should be shown, replacing the system keyboard.
  The snapshot is being added as a subview, aligned at the same position the keyboard is, before hiding it momentarily.
  
- @param show YES if a keyboard snapshot should be show and the system keyboard hidden.
+ @param show YES if a keyboard snapshot placeholder should show instead of the system keyboard.
  */
-- (void)showKeyboardSnapshot:(BOOL)show;
+- (void)showKeyboardPlaceholder:(BOOL)show;
 
 
 #pragma mark - Text Counting

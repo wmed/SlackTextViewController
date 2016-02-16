@@ -39,7 +39,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 @property (nonatomic, strong) NSArray *charCountLabelVCs;
 
 @property (nonatomic, strong) UILabel *charCountLabel;
-@property (nonatomic, strong) UIView *keyboardMockView;
+@property (nonatomic, strong) UIView *keyboardPlaceholderView;
 
 @property (nonatomic) CGPoint previousOrigin;
 
@@ -539,41 +539,41 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 }
 
 
-#pragma mark - Keyboard Snapshot
+#pragma mark - Keyboard Snapshot Placeholder
 
-- (void)showKeyboardSnapshot:(BOOL)show
+- (void)showKeyboardPlaceholder:(BOOL)show
 {
     UIWindow *keyboardWindow = [self keyboardWindow];
     
-    if (!_keyboardMockView && show) {
+    if (!_keyboardPlaceholderView && show) {
         
         // Takes a snapshot of the keyboard's window
-        UIView *keyboardSnapshot = [keyboardWindow snapshotViewAfterScreenUpdates:NO];
+        UIView *snapshotView = [keyboardWindow snapshotViewAfterScreenUpdates:NO];
         
         // Shifts the snapshot up to fit to the bottom
-        CGRect snapshowFrame = keyboardSnapshot.frame;
+        CGRect snapshowFrame = snapshotView.frame;
         snapshowFrame.origin.y = CGRectGetHeight(self.inputAccessoryView.keyboardViewProxy.frame) - CGRectGetHeight(self.superview.frame);
-        keyboardSnapshot.frame = snapshowFrame;
+        snapshotView.frame = snapshowFrame;
         
         CGRect mockframe = self.inputAccessoryView.keyboardViewProxy.frame;
         mockframe.origin.y = CGRectGetHeight(self.frame);
         
-        _keyboardMockView = [[UIView alloc] initWithFrame:mockframe];
-        _keyboardMockView.backgroundColor = [UIColor clearColor];
-        [_keyboardMockView addSubview:keyboardSnapshot];
+        self.keyboardPlaceholderView = [[UIView alloc] initWithFrame:mockframe];
+        self.keyboardPlaceholderView.backgroundColor = [UIColor clearColor];
+        [self.keyboardPlaceholderView addSubview:snapshotView];
         
-        // Adds the mock view to the input bar, so when it moves they are glued together
-        [self addSubview:_keyboardMockView];
+        // Adds the placeholder view to the input bar, so when it looks they are sticked together.
+        [self addSubview:self.keyboardPlaceholderView];
         
         // Let's delay hiding the keyboard's window to avoid noticeable glitches
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             keyboardWindow.hidden = YES;
         });
     }
-    else if (_keyboardMockView && !show) {
+    else if (_keyboardPlaceholderView && !show) {
         
-        [_keyboardMockView removeFromSuperview];
-        _keyboardMockView = nil;
+        [_keyboardPlaceholderView removeFromSuperview];
+        _keyboardPlaceholderView = nil;
         
         keyboardWindow.hidden = NO;
     }
