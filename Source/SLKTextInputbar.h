@@ -128,12 +128,12 @@ typedef NS_ENUM(NSUInteger, SLKCounterPosition) {
  
  @param view The view where the snapshot is taken for, for aligning purposes.
  */
-- (void)showKeyboardPlaceholderFromView:(UIView *)view;
+- (void)prepareKeyboardPlaceholderFromView:(UIView *)view;
 
 /**
  Hides the visible keyboard snapshot placeholder, if applicable.
  */
-- (void)hideKeyboardPlaceholder;
+- (void)showKeyboardPlaceholder:(BOOL)show;
 
 
 #pragma mark - Text Counting

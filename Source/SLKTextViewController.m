@@ -945,6 +945,13 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
             startPoint = CGPointZero;
             dragging = NO;
             
+            // Because the keyboard is on its own view hierarchy since iOS 9,
+            // we instead show a snapshot of the keyboard and hide it
+            // to give the illusion that the keyboard is being moved by the user.
+            if (SLK_IS_IOS9_AND_HIGHER && gestureVelocity.y > 0) {
+                [self.textInputbar prepareKeyboardPlaceholderFromView:self.view];
+            }
+            
             break;
         }
         case UIGestureRecognizerStateChanged: {
@@ -958,7 +965,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
                     // we instead show a snapshot of the keyboard and hide it
                     // to give the illusion that the keyboard is being moved by the user.
                     if (SLK_IS_IOS9_AND_HIGHER && gestureVelocity.y > 0) {
-                        [self.textInputbar showKeyboardPlaceholderFromView:self.view];
+                        [self.textInputbar showKeyboardPlaceholder:YES];
                     }
                     
                     originalFrame = keyboardView.frame;
@@ -1010,7 +1017,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
             
             if (!dragging) {
                 if (SLK_IS_IOS9_AND_HIGHER) {
-                    [self.textInputbar hideKeyboardPlaceholder];
+                    [self.textInputbar showKeyboardPlaceholder:NO];
                 }
                 
                 break;
@@ -1050,7 +1057,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
                                  self.movingKeyboard = NO;
                                  
                                  if (SLK_IS_IOS9_AND_HIGHER) {
-                                     [self.textInputbar hideKeyboardPlaceholder];
+                                     [self.textInputbar showKeyboardPlaceholder:NO];
                                  }
                              }];
             

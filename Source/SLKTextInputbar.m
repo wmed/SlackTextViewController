@@ -541,12 +541,11 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 
 #pragma mark - Keyboard Snapshot Placeholder
 
-- (void)showKeyboardPlaceholderFromView:(UIView *)view
+- (void)prepareKeyboardPlaceholderFromView:(UIView *)view
 {
     UIWindow *keyboardWindow = [self slk_keyboardWindow];
     
     if (!_keyboardPlaceholderView && keyboardWindow) {
-        
         // Takes a snapshot of the keyboard's window
         UIView *snapshotView = [keyboardWindow snapshotViewAfterScreenUpdates:NO];
         
@@ -563,6 +562,14 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         self.keyboardPlaceholderView = [[UIView alloc] initWithFrame:keyboardFrame];
         self.keyboardPlaceholderView.backgroundColor = [UIColor clearColor];
         [self.keyboardPlaceholderView addSubview:snapshotView];
+    }
+}
+
+- (void)showKeyboardPlaceholder:(BOOL)show
+{
+    UIWindow *keyboardWindow = [self slk_keyboardWindow];
+    
+    if (show && self.keyboardPlaceholderView && keyboardWindow) {
         
         // Adds the placeholder view to the input bar, so when it looks they are sticked together.
         [self addSubview:self.keyboardPlaceholderView];
@@ -572,13 +579,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
             keyboardWindow.hidden = YES;
         });
     }
-}
-
-- (void)hideKeyboardPlaceholder
-{
-    UIWindow *keyboardWindow = [self slk_keyboardWindow];
-
-    if (_keyboardPlaceholderView && keyboardWindow) {
+    else if (!show && _keyboardPlaceholderView && keyboardWindow) {
         
         [_keyboardPlaceholderView removeFromSuperview];
         _keyboardPlaceholderView = nil;
