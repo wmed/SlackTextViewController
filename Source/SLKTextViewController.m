@@ -697,7 +697,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     }
     
     // Toggles auto-correction if requiered
-    [self slk_enableTypingSuggestionIfNeeded];
+    //[self slk_enableTypingSuggestionIfNeeded];
 }
 
 - (void)textSelectionDidChange
