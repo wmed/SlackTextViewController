@@ -103,6 +103,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     
     [self slk_registerTo:self.layer forSelector:@selector(position)];
     [self slk_registerTo:self.leftButton.imageView forSelector:@selector(image)];
+    [self slk_registerTo:self.leftButton.titleLabel forSelector:@selector(text)];
     [self slk_registerTo:self.rightButton.titleLabel forSelector:@selector(font)];
 }
 
@@ -654,7 +655,9 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     else {
         self.editorContentViewHC.constant = zero;
         
-        CGSize leftButtonSize = [self.leftButton imageForState:self.leftButton.state].size;
+        CGSize leftButtonImageSize = [self.leftButton imageForState:self.leftButton.state].size;
+        CGSize leftButtonTextSize = [self.leftButton.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.leftButton.titleLabel.font}];
+        CGSize leftButtonSize = CGSizeMake(leftButtonImageSize.width+leftButtonTextSize.width, leftButtonImageSize.height+leftButtonImageSize.height);
         
         if (leftButtonSize.width > 0) {
             self.leftButtonHC.constant = roundf(leftButtonSize.height);
@@ -709,6 +712,15 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
             [self slk_updateConstraintConstants];
         }
     }
+    else if ([object isEqual:self.leftButton.titleLabel] && [keyPath isEqualToString:NSStringFromSelector(@selector(text))]) {
+        
+        NSString *newText = change[NSKeyValueChangeNewKey];
+        NSString *oldText = change[NSKeyValueChangeOldKey];
+        
+        if (![newText isEqual:oldText]) {
+            [self slk_updateConstraintConstants];
+        }
+    }
     else if ([object isEqual:self.rightButton.titleLabel] && [keyPath isEqualToString:NSStringFromSelector(@selector(font))]) {
         
         [self slk_updateConstraintConstants];
@@ -746,6 +758,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     
     [self slk_unregisterFrom:self.layer forSelector:@selector(position)];
     [self slk_unregisterFrom:self.leftButton.imageView forSelector:@selector(image)];
+    [self slk_unregisterFrom:self.leftButton.titleLabel forSelector:@selector(text)];
     [self slk_unregisterFrom:self.rightButton.titleLabel forSelector:@selector(font)];
     
     _leftButton = nil;
